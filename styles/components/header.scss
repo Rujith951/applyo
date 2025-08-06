@@ -1,0 +1,131 @@
+@import "../variable.scss";
+
+.header {
+	background-color: rgba(17, 25, 40, 0.75);
+	backdrop-filter: blur(16px) saturate(180%);
+	-webkit-backdrop-filter: blur(16px) saturate(180%);
+	border: 1px solid rgba(255, 255, 255, 0.125);
+	position: relative;
+	overflow: hidden;
+
+	// Shimmer Effect
+	&__shimmer {
+		position: absolute;
+		top: 0;
+		left: -150%;
+		width: 80%;
+		height: 100%;
+		transform: skewX(-34deg);
+		background: linear-gradient(
+			90deg,
+			rgba(255, 255, 255, 0),
+			rgba(255, 255, 255, 0.6)
+		);
+		box-shadow: 0 0 20px rgba(255, 255, 255, 0);
+		animation: shineAnimation 10s infinite ease-in-out;
+		animation-delay: 2s;
+		// opacity: 0.5;
+		z-index: 1;
+	}
+
+	&Container {
+		height: 100%;
+		@include d-flex(space-between, center);
+		padding: 1rem 6rem;
+		position: relative;
+		z-index: 2;
+
+		.menuBox {
+			display: none;
+		}
+	}
+
+	&__logo-box {
+		width: 10rem;
+		height: 4rem;
+		position: relative;
+	}
+
+	&__search-logout-wrap {
+		@include d-flex(end, center);
+		gap: 2rem;
+		width: 60%;
+	}
+
+	&__filter-menu {
+		@include d-flex(center, center);
+		padding: 0.8rem;
+		border: 1px solid rgba(255, 255, 255, 0.25);
+		border-radius: 12px;
+		cursor: pointer;
+
+		&:hover {
+			border-color: rgba(255, 255, 255, 0.5);
+		}
+	}
+
+	&__search {
+		max-width: 44rem;
+		flex: 1;
+	}
+
+	&__logout-button {
+		width: 12rem;
+		max-width: 12rem;
+	}
+
+	// Responsive Styles
+	@media screen and (max-width: 768px) {
+		&Container {
+			padding: 1.5rem 3rem;
+		}
+		&__logo-box {
+			width: 8rem;
+			height: 3.2rem;
+		}
+
+		&__logout-button {
+			width: 10rem;
+			max-width: 10rem;
+		}
+	}
+
+	@media screen and (max-width: 568px) {
+		&Container {
+			padding: 1rem 2rem;
+			gap: 2rem;
+
+			.menuBox {
+				display: flex;
+			}
+		}
+
+		&__shimmer {
+			animation-duration: 5s;
+		}
+
+		&__logo-box {
+			width: 7rem;
+			height: 3rem;
+		}
+
+		&__search-logout-wrap {
+			width: 100%;
+			display: none;
+		}
+
+		&__logout-button {
+			max-width: none;
+		}
+	}
+}
+
+// Keyframes
+@keyframes shineAnimation {
+	0% {
+		left: -150%;
+	}
+	100% {
+		left: 150%;
+	}
+}

@@ -1,0 +1,38 @@
+// VARIABLES
+$color-background-start: #0d0d0d; // Deep black
+$color-background-end: #0a1f3c; // Dark navy blue
+
+$color-glass: rgba(255, 255, 255, 0.05); // Glass effect for cards
+$color-glass-border: rgba(255, 255, 255, 0.12);
+$color-primary: #1e90ff; // Dodger blue (for accents)
+$color-secondary: #00c6ff; // Cyan blue (hover or highlights)
+$color-text-primary: #ffffff; // Main white text
+$color-text-secondary: #b0bec5; // Subtle secondary text
+
+// styles/common/_mixins.scss
+
+@mixin d-flex($jc: flex-start, $al: flex-start) {
+	display: flex;
+	align-items: $al;
+	justify-content: $jc;
+}
+
+@mixin font-style($fs: 1rem, $fw: 500, $lh: 140%) {
+	font-size: $fs;
+	font-weight: $fw;
+	line-height: $lh;
+}
+
+@mixin font-family-inter() {
+	font-family: "inter", serif;
+}
+
+@mixin linear-background {
+	@include font-family-inter();
+	background: linear-gradient(
+		145deg,
+		$color-background-start,
+		$color-background-end
+	);
+	color: $color-text-primary;
+}

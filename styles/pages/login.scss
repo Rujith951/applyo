@@ -1,0 +1,58 @@
+@import "../variable.scss";
+
+.login {
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden;
+	@include linear-background;
+
+	&Container {
+		height: 100%;
+		width: 100%;
+		@include d-flex(center, center);
+	}
+
+	&__form-box {
+		width: 48rem;
+		max-width: 54rem;
+		background: rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(255, 255, 255, 0.25);
+		border-radius: 12px;
+		backdrop-filter: blur(12px) saturate(160%);
+		-webkit-backdrop-filter: blur(12px) saturate(160%);
+		padding: 1.8rem;
+	}
+
+	&__form {
+		.input-error {
+			display: block;
+			@include d-flex(start, center);
+			font-size: 0.8rem;
+			color: #ff6b6b;
+			margin-top: 0.4rem;
+			opacity: 0;
+			transition: opacity 0.3s ease;
+			height: 2.8rem;
+		}
+
+		.input-error.visible {
+			opacity: 1;
+		}
+	}
+
+	&__button-wrapper {
+		margin-top: 2.2rem;
+	}
+
+	@media screen and (max-width: 568px) {
+		.login {
+			&Container {
+				padding: 0 2rem;
+			}
+
+			&__form-box {
+				width: 100%;
+			}
+		}
+	}
+}
