@@ -4,4 +4,53 @@
 	@include linear-background;
 	height: 100vh;
 	width: 100%;
+	position: relative;
+	overflow: hidden;
+	scroll-behavior: smooth;
+
+	&Container {
+		height: calc(100vh - 60px);
+		overflow: scroll;
+		padding: 1rem 6rem 5.4rem 6rem;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 2.3rem;
+	}
+
+	&__pagination-box {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		z-index: 2;
+	}
+
+	@media (max-width: 1185px) {
+		.home {
+			&Container {
+				grid-template-columns: repeat(3, 1fr);
+				padding: 0 4rem 6rem 4rem;
+			}
+		}
+	}
+
+	@media (max-width: 768px) {
+		.home {
+			&Container {
+				padding: 1.5rem 3rem;
+				grid-template-columns: repeat(2, 1fr);
+				padding: 0 3rem 6rem 3rem;
+			}
+		}
+	}
+
+	@media (max-width: 568px) {
+		.home {
+			&Container {
+				padding: 0 2rem;
+				grid-template-columns: repeat(1, 1fr);
+				padding: 0 2rem 5rem 2rem;
+			}
+		}
+	}
 }

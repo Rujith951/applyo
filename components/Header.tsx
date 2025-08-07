@@ -1,4 +1,6 @@
+"use client";
 import React from "react";
+import { useParams, usePathname } from "next/navigation";
 import Image from "next/image";
 import { CiFilter } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -9,9 +11,18 @@ import "@/styles/components/header.scss";
 import Input from "./Input";
 
 const Header = () => {
+	const pathname = usePathname();
+
+	const isDetails = pathname.startsWith("/details");
+
 	return (
 		<header className="header">
-			<main className="container headerContainer">
+			<main
+				className="container headerContainer"
+				style={{
+					backgroundColor: isDetails ? "rgba(0, 0, 0, 0.7)" : undefined,
+				}}
+			>
 				<div className="header__logo-box">
 					<Image
 						src="/assets/tmdb.svg"
@@ -20,9 +31,14 @@ const Header = () => {
 						style={{ objectFit: "contain" }}
 					/>
 				</div>
-				<div className="header__search-logout-wrap">
+				<div
+					style={{
+						display: isDetails ? "none" : undefined,
+					}}
+					className="header__search-logout-wrap"
+				>
 					<div className="header__filter-menu filterIconBox">
-						<CiFilter className="filterIcon" color="white" size={20} />
+						<CiFilter className="filterIcon" color="white" size={19} />
 					</div>
 					<div className="header__search">
 						<Input
