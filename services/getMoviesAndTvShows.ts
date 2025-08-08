@@ -24,12 +24,12 @@ export const getMoviesAndTvShows = async (
 		console.log(moviesData, "moviesRes in getMov");
 		const tvShowsData = await tvShowsRes.json();
 
-		const movieResultsWithType = moviesData.results.map((movie: any) => ({
+		const movieResultsWithType = moviesData.results?.map((movie: any) => ({
 			...movie,
 			media_type: "movie" as const,
 		}));
 
-		const tvResultsWithType = tvShowsData.results.map((tv: any) => ({
+		const tvResultsWithType = tvShowsData.results?.map((tv: any) => ({
 			...tv,
 			media_type: "tv" as const,
 		}));
