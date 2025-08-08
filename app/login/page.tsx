@@ -95,6 +95,7 @@ const Login = () => {
 									setErrors(prev => ({ ...prev, email: "" }));
 								}
 							}}
+							showIcon={false}
 						/>
 						<span className={`input-error ${errors.email ? "visible" : ""}`}>
 							{errors.email || "Error placeholder"}
@@ -109,6 +110,7 @@ const Login = () => {
 									setErrors(prev => ({ ...prev, password: "" }));
 								}
 							}}
+							showIcon={false}
 						/>
 						<span className={`input-error ${errors.password ? "visible" : ""}`}>
 							{errors.password || "Error placeholder"}

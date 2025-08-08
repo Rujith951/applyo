@@ -11,6 +11,7 @@ interface InputProps {
 	onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 	searchText?: string;
 	setSearchText?: React.Dispatch<React.SetStateAction<string>>;
+	showIcon: boolean;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -20,6 +21,7 @@ const Input: React.FC<InputProps> = ({
 	onChange,
 	searchText,
 	setSearchText,
+	showIcon,
 }) => {
 	const clearSearch = () => setSearchText?.("");
 
@@ -33,9 +35,16 @@ const Input: React.FC<InputProps> = ({
 				onChange={onChange}
 			/>
 			{searchText ? (
-				<FaTimes className="icon clear-icon" onClick={clearSearch} />
+				<FaTimes
+					style={{ display: showIcon ? "block" : "none" }}
+					className="icon clear-icon"
+					onClick={clearSearch}
+				/>
 			) : (
-				<FaSearch className="icon search-icon" />
+				<FaSearch
+					style={{ display: showIcon ? "block" : "none" }}
+					className="icon search-icon"
+				/>
 			)}
 		</div>
 	);

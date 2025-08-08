@@ -148,6 +148,7 @@ const Header = () => {
 							onChange={e => setInputValue(e.target.value)}
 							searchText={inputValue}
 							setSearchText={setInputValue}
+							showIcon={true}
 						/>
 					</div>
 					<div
