@@ -21,6 +21,7 @@ export const getMoviesAndTvShows = async (
 		]);
 
 		const moviesData = await moviesRes.json();
+		console.log(moviesData, "moviesRes in getMov");
 		const tvShowsData = await tvShowsRes.json();
 
 		const movieResultsWithType = moviesData.results.map((movie: any) => ({
@@ -35,8 +36,6 @@ export const getMoviesAndTvShows = async (
 
 		const combined = [...movieResultsWithType, ...tvResultsWithType];
 		combined.sort((a, b) => b.popularity - a.popularity);
-
-		console.log(combined, "combined in get");
 
 		return combined;
 	} catch (err) {

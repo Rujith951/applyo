@@ -5,68 +5,117 @@ import { useRouter } from "next/navigation";
 import CryptoJS from "crypto-js";
 
 import Header from "@/components/Header";
-
-import "@/styles/pages/home.scss";
 import Pagination from "@/components/Pagination";
 import MovieCard from "@/components/MovieCard";
-import { MoviesContext, useMoviesContext } from "@/context/moviesContext";
+
+import { useMoviesContext } from "@/context/moviesContext";
+import "@/styles/pages/home.scss";
+import Loader from "@/components/Loader";
 
 const Home = () => {
 	const router = useRouter();
-	const [state, setState] = useState<any>([]);
-	console.log(state, "state");
 
+	const {
+		moviesData,
+		filteredData,
+		page,
+		searchPageDetails: { pageOfSearch, setPageOfSearch },
+		search,
+		type: { typeOf },
+		isLoading,
+	} = useMoviesContext();
+
+	const [filteredByTypeMovies, setFilteredByTypeMovies] = useState<any[]>([]);
+
+	const dataShouldRender =
+		filteredData.filteredMovies && filteredData.filteredMovies.length > 0
+			? filteredData.filteredMovies
+			: moviesData.movies;
+
+	useEffect(() => {
+		if (!typeOf) {
+			setFilteredByTypeMovies([]);
+			return;
+		}
+
+		const filtered = dataShouldRender.filter(
+			(item: any) => item.media_type === typeOf
+		);
+		setFilteredByTypeMovies(filtered);
+	}, [typeOf, dataShouldRender]);
+
+	// ✅ Protect route
 	useLayoutEffect(() => {
 		const ciphertext = localStorage.getItem("userPayload");
 		if (!ciphertext) {
 			return router.replace("/login");
 		}
-		// const bytes = CryptoJS.AES.decrypt(
-		// 	ciphertext,
-		// 	process.env.NEXT_PUBLIC_SECRET_KEY!
-		// );
-		// const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
 
 		window.history.pushState(null, "", window.location.href);
 		const onPopState = () => {
 			window.history.pushState(null, "", window.location.href);
 		};
 		window.addEventListener("popstate", onPopState);
-		return () => {
-			window.removeEventListener("popstate", onPopState);
-		};
+		return () => window.removeEventListener("popstate", onPopState);
 	}, [router]);
 
-	useEffect(() => {
-		f();
-	}, []);
+	// ✅ Pagination handling
+	const handlePageChange = (selectedItem: any) => {
+		const selectedPage = selectedItem.selected + 1;
 
-	async function f() {
-		const response = await fetch(
-			`https://api.themoviedb.org/3/discover/movie?api_key=${process.env.NEXT_PUBLIC_API_KEY}&language=en-US`
-		);
-
-		const data = await response.json();
-		setState(data.results);
-	}
+		if (search.searchQuery) {
+			setPageOfSearch(prev => ({
+				...prev,
+				searchCurrentPage: selectedPage,
+			}));
+			localStorage.setItem("searchCurrentPage", JSON.stringify(selectedPage));
+		} else {
+			page.setCurrentPage(selectedPage);
+			localStorage.setItem("currentPage", JSON.stringify(selectedPage));
+		}
+	};
 
 	return (
 		<main className="home">
 			<Header />
-			<div className="container homeContainer">
-				{state.map((movie: any, index: any) => (
-					<div key={index} className="home__movie-card-box">
-						<MovieCard
-							id={movie.id}
-							title={movie.title}
-							poster_path={movie.poster_path}
-							release_date={movie.release_date}
-						/>
-					</div>
-				))}
-			</div>
+			{isLoading ? (
+				<div
+					className="container homeContainer"
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+					}}
+				>
+					<Loader width="40px" height="40px" />
+				</div>
+			) : (
+				<div className="container homeContainer">
+					{(filteredByTypeMovies.length > 0
+						? filteredByTypeMovies
+						: dataShouldRender
+					).map((movie: any, index: number) => (
+						<div key={index} className="home__movie-card-box">
+							<MovieCard
+								id={movie.id}
+								title={movie.title}
+								poster_path={movie.poster_path}
+								release_date={movie.release_date}
+							/>
+						</div>
+					))}
+				</div>
+			)}
 			<div className="home__pagination-box">
-				<Pagination />
+				<Pagination
+					onPageChange={handlePageChange}
+					currentPage={
+						search.searchQuery
+							? pageOfSearch.searchCurrentPage
+							: page.currentPage
+					}
+					totalPages={search.searchQuery ? pageOfSearch.totalPages : 500}
+				/>
 			</div>
 		</main>
 	);

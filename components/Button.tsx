@@ -2,6 +2,7 @@
 
 import React from "react";
 import "@/styles/components/button.scss";
+import Loader from "./Loader";
 
 interface ButtonProps {
 	text: string;
@@ -9,6 +10,7 @@ interface ButtonProps {
 	type?: "button" | "submit";
 	disabled?: boolean;
 	variant?: "primary" | "secondary" | "danger";
+	loading?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,15 +19,17 @@ const Button: React.FC<ButtonProps> = ({
 	type = "button",
 	disabled = false,
 	variant = "primary",
+	loading = false,
 }) => {
 	return (
 		<button
-			className={`glass-button ${variant}`}
+			className={`glass-button ${variant} ${loading ? "loading" : ""}`}
 			onClick={onClick}
 			type={type}
-			disabled={disabled}
+			disabled={disabled || loading}
 		>
-			{text}
+			<span>{text}</span>
+			{loading && <Loader width="18px" height="18px" />}
 		</button>
 	);
 };

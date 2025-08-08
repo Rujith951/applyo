@@ -8,6 +8,8 @@
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
 	color: #ffffff;
+	@include d-flex(center, center);
+	gap: 1rem;
 	font-size: 1rem;
 	font-weight: 500;
 	width: 100%;

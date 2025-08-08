@@ -12,11 +12,12 @@
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
 	transition: border 0.4s ease, background 0.4s ease;
-
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 1px;
+	max-height: 40.5rem;
+	height: 40.5rem;
 
 	&:hover {
 		border: 1px solid rgba(255, 255, 255, 0.5);
@@ -47,7 +48,6 @@
 
 	&__poster {
 		position: relative;
-		z-index: 2;
 
 		.movie-card__posterImg {
 			width: 100%;
@@ -59,7 +59,6 @@
 
 	&__details {
 		position: relative;
-		z-index: 2;
 		padding: 1rem;
 	}
 
@@ -78,7 +77,6 @@
 	}
 }
 
-// Keyframes
 @keyframes shine {
 	0%,
 	100% {

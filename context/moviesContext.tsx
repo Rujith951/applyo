@@ -8,6 +8,7 @@ import React, {
 	ReactNode,
 } from "react";
 import { getMoviesAndTvShows } from "@/services/getMoviesAndTvShows";
+import { fetchSearchedMovies } from "@/services/movies/fetchSearchedMovies";
 
 export interface Movie {
 	id: number;
@@ -43,6 +44,26 @@ interface MoviesContextType {
 			}>
 		>;
 	};
+	page: {
+		currentPage: number;
+		setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+	};
+	searchPageDetails: {
+		pageOfSearch: {
+			totalPages: number;
+			searchCurrentPage: number;
+		};
+		setPageOfSearch: React.Dispatch<
+			React.SetStateAction<{
+				totalPages: number;
+				searchCurrentPage: number;
+			}>
+		>;
+	};
+	type: {
+		typeOf: string;
+		setTypeOf: React.Dispatch<React.SetStateAction<string>>;
+	};
 	// fetchMovies: () => void;
 	isLoading: boolean;
 }
@@ -59,9 +80,20 @@ export const MoviesContextProvider = ({
 	const [movies, setMovies] = useState<Movie[]>([]);
 	const [filteredMovies, setFilteredMovies] = useState<Movie[]>([]);
 	const [searchQuery, setSearchQuery] = useState("");
+	const [typeOf, setTypeOf] = useState("");
 	const [filters, setFilters] = useState({ type: "", year: "" });
 	const [currentPage, setCurrentPage] = useState(1);
+	const [pageOfSearch, setPageOfSearch] = useState({
+		totalPages: 0,
+		searchCurrentPage: 1,
+	});
 	const [isLoading, setIsLoading] = useState(false);
+
+	console.log(pageOfSearch, "pageOfSearch");
+
+	console.log(movies, "movies in context");
+	console.log(searchQuery, "searchQuery in context");
+	console.log(filteredMovies, "filteredMovies in context");
 
 	useEffect(() => {
 		// only when nothing else is active
@@ -78,6 +110,36 @@ export const MoviesContextProvider = ({
 		void load();
 	}, [currentPage, searchQuery, filters]);
 
+	useEffect(() => {
+		const load = async () => {
+			setIsLoading(true);
+			try {
+				const data = await fetchSearchedMovies(
+					searchQuery,
+					pageOfSearch.searchCurrentPage
+				);
+
+				if ("results" in data && "totalPages" in data) {
+					setFilteredMovies(data.results);
+					setPageOfSearch(prev => ({
+						...prev,
+						totalPages: data.totalPages,
+					}));
+				} else {
+					setFilteredMovies([]);
+					setPageOfSearch(prev => ({
+						...prev,
+						totalPages: 0,
+					}));
+				}
+			} finally {
+				setIsLoading(false);
+			}
+		};
+
+		void load();
+	}, [searchQuery, pageOfSearch.searchCurrentPage]);
+
 	return (
 		<MoviesContext.Provider
 			value={{
@@ -85,6 +147,10 @@ export const MoviesContextProvider = ({
 				filteredData: { filteredMovies, setFilteredMovies },
 				search: { searchQuery, setSearchQuery },
 				filters: { filters, setFilters },
+				page: { currentPage, setCurrentPage },
+				searchPageDetails: { pageOfSearch, setPageOfSearch },
+				type: { typeOf, setTypeOf },
+
 				// fetchMovies: () => void 0,
 				isLoading,
 			}}

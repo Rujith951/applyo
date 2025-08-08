@@ -24,6 +24,10 @@ const MovieCard = ({
 		router.push(`/details/${id}`);
 	};
 
+	const imageSrc = poster_path
+		? `${ENDPOINTS.IMAGE.base}${poster_path}`
+		: "/assets/Noimg.jpg";
+
 	return (
 		<div
 			className="movie-card"
@@ -33,8 +37,11 @@ const MovieCard = ({
 			<div className="movie-card__poster">
 				<img
 					className="movie-card__posterImg"
-					src={`${ENDPOINTS.IMAGE.base}${poster_path}`}
+					src={imageSrc}
 					alt={title}
+					onError={e => {
+						(e.target as HTMLImageElement).src = "/assets/Noimg.jpg";
+					}}
 				/>
 			</div>
 			<div className="movie-card__details">

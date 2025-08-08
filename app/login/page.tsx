@@ -12,58 +12,20 @@ import { createToken } from "@/services/auth/createToken";
 import { verifyToken } from "@/services/auth/verifyToken";
 
 import "@/styles/pages/login.scss";
+import { useMoviesContext } from "@/context/moviesContext";
 
 const Login = () => {
 	const [userName, SetUserName] = useState("");
 	const [password, setPassword] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
+
 	const [errors, setErrors] = useState({
 		email: "",
 		password: "",
 	});
 	const router = useRouter();
 
-	// const handleSubmit = async (e: React.FormEvent) => {
-	// 	e.preventDefault();
-
-	// 	try {
-	// 		const tokenData = await createToken();
-
-	// 		if (tokenData.success) {
-	// 			const payload = {
-	// 				username: userName,
-	// 				password: password,
-	// 				request_token: tokenData.request_token,
-	// 			};
-
-	// 			const verifyData = await verifyToken(payload);
-	// 			if (verifyData.success) {
-	// 				const ciphertext = CryptoJS.AES.encrypt(
-	// 					JSON.stringify(payload),
-	// 					process.env.NEXT_PUBLIC_SECRET_KEY
-	// 				).toString();
-	// 				localStorage.setItem("userPayload", ciphertext);
-	// 				toast.success("verifyData is verified");
-	// 				router.push("/");
-	// 			}
-	// 		}
-	// 	} catch (error: unknown) {
-	// 		console.log(error, "in catch in Lo");
-
-	// 		if (error instanceof Error) {
-	// 			if (error.name === "InvalidAPIKey") {
-	// 				toast.error("Your API_KEY is invalid, You must granted a valid KEY");
-	// 			} else if (error.name === "LoginError") {
-	// 				if (error.message.toLowerCase().includes("username")) {
-	// 					setErrors(prev => ({ ...prev, email: "Username is incorrect" }));
-	// 				} else if (error.message.toLowerCase().includes("password")) {
-	// 					setErrors(prev => ({ ...prev, password: "Password is incorrect" }));
-	// 				} else {
-	// 					toast.error("Login failed. Check credentials.");
-	// 				}
-	// 			}
-	// 		}
-	// 	}
-	// };
+	console.log(isLoading, "in login");
 
 	const handleSubmit = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -76,6 +38,8 @@ const Login = () => {
 		setErrors(newErrors);
 
 		if (newErrors.email || newErrors.password) return;
+
+		setIsLoading(true); // Start loading
 
 		try {
 			const tokenData = await createToken();
@@ -110,6 +74,8 @@ const Login = () => {
 					}
 				}
 			}
+		} finally {
+			setIsLoading(false);
 		}
 	};
 
@@ -148,7 +114,7 @@ const Login = () => {
 							{errors.password || "Error placeholder"}
 						</span>
 						<div className="login__button-wrapper">
-							<Button text="Login" type="submit" />
+							<Button text="Login" type="submit" loading={isLoading} />
 						</div>
 					</form>
 				</div>
@@ -158,9 +124,3 @@ const Login = () => {
 };
 
 export default Login;
-
-// if (ciphertext) {
-//   const bytes = CryptoJS.AES.decrypt(ciphertext, secretKey);
-//   const decrypted = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
-//   console.log(decrypted);
-// }to decrypt
