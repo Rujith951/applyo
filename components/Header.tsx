@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import Image from "next/image";
 import { CiFilter } from "react-icons/ci";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -12,18 +12,27 @@ import Input from "./Input";
 
 const Header = () => {
 	const pathname = usePathname();
+	const router = useRouter();
 
 	const isDetails = pathname.startsWith("/details");
 
 	return (
-		<header className="header">
-			<main
-				className="container headerContainer"
-				style={{
-					backgroundColor: isDetails ? "rgba(0, 0, 0, 0.7)" : undefined,
-				}}
-			>
-				<div className="header__logo-box">
+		<header
+			className="header"
+			style={{
+				backgroundColor: isDetails ? "rgba(0, 0, 0, 0.7)" : undefined,
+			}}
+		>
+			<main className="container headerContainer">
+				<div
+					className="header__logo-box"
+					onClick={() => {
+						if (isDetails) {
+							router.push("/");
+						}
+					}}
+					style={{ cursor: isDetails ? "pointer" : undefined }}
+				>
 					<Image
 						src="/assets/tmdb.svg"
 						alt="TMDB Logo"
@@ -52,7 +61,12 @@ const Header = () => {
 						<Button text="Logout" variant="danger" />
 					</div>
 				</div>
-				<div className="header__filter-menu menuBox">
+				<div
+					className="header__filter-menu menuBox"
+					style={{
+						display: isDetails ? "none" : undefined,
+					}}
+				>
 					<RxHamburgerMenu color="white" size={20} />
 				</div>
 			</main>

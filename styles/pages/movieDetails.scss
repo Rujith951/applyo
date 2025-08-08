@@ -13,7 +13,7 @@
 		height: 100%;
 
 		.overlay {
-			background: rgba(0, 0, 0, 0.85);
+			background: rgba(0, 0, 0, 0.7);
 			padding: 3rem;
 			inset: 0;
 			position: absolute;
@@ -52,7 +52,7 @@
 					background: rgba(255, 255, 255, 0.2);
 					padding: 0.4rem 1rem;
 					border-radius: 999px;
-					font-size: 1rem;
+					font-size: 2rem;
 				}
 
 				.overview {
@@ -94,7 +94,7 @@
 							rgba(200, 200, 200, 0.6) 60%,
 							transparent
 						);
-						animation: shine 8s ease-in-out infinite;
+						animation: playshine 8s ease-in-out infinite;
 						z-index: 1;
 						pointer-events: none;
 					}
@@ -113,7 +113,7 @@
 		&__vidoe-box {
 			position: relative;
 			width: 70%;
-			height: 60%;
+			height: 70%;
 
 			iframe {
 				width: 100%;
@@ -123,8 +123,8 @@
 
 		&__crossBox {
 			position: absolute;
-			right: -16px;
-			top: -16px;
+			right: -20px;
+			top: -20px;
 			cursor: pointer;
 		}
 	}
@@ -155,28 +155,36 @@
 				&__details-box {
 					flex-basis: auto;
 					overflow: scroll;
-					max-height: 70%;
-					min-height: 70%;
-					padding-bottom: 1rem;
+					max-height: 54%;
+					min-height: 54%;
+					padding-bottom: 2rem;
 
 					h1 {
-						font-size: 2.5rem;
+						font-size: 3.5rem;
 						margin-bottom: 1.25rem;
 					}
 
 					.meta {
-						font-size: 1.1rem;
+						font-size: 2rem;
 						gap: 1.25rem;
 
 						strong {
-							font-size: 1.15rem;
+							font-size: 2rem;
 						}
 					}
 
+					.meta .genre {
+						font-size: 2.5rem;
+					}
+
 					.overview {
-						font-size: 1.2rem;
+						font-size: 1.8rem;
 						line-height: 1.7;
 						margin-top: 1.25rem;
+
+						strong {
+							font-size: 2rem;
+						}
 					}
 				}
 
@@ -196,10 +204,23 @@
 				}
 			}
 		}
+
+		.videoOverlay {
+			padding: 4rem;
+			&__vidoe-box {
+				height: 35%;
+				width: 100%;
+			}
+
+			&__crossBox {
+				right: -1px;
+				top: -24px;
+			}
+		}
 	}
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 568px) {
 	.details {
 		@include linear-background;
 		height: 100vh;
@@ -215,8 +236,8 @@
 
 				&__details-box {
 					flex-basis: auto;
-					max-height: 70%;
-					min-height: 70%;
+					max-height: 60%;
+					min-height: 60%;
 					padding-bottom: 1rem;
 
 					h1 {
@@ -234,7 +255,7 @@
 					}
 
 					.meta .genre {
-						font-size: 0.95rem;
+						font-size: 1.4rem;
 						padding: 0.35rem 0.9rem;
 					}
 
@@ -242,12 +263,17 @@
 						font-size: 1.1rem;
 						line-height: 1.6;
 						margin-top: 1.25rem;
+
+						strong {
+							font-size: 1.15rem;
+						}
 					}
 				}
 
 				&__playButton-box {
 					width: 100%;
 					max-height: 30%;
+					min-height: 30%;
 
 					&Icon-box {
 						padding: 2rem;
@@ -261,10 +287,18 @@
 				}
 			}
 		}
+
+		.videoOverlay {
+			padding: 2rem;
+			&__vidoe-box {
+				height: 35%;
+				width: 100%;
+			}
+		}
 	}
 }
 
-@keyframes shine {
+@keyframes playshine {
 	0% {
 		margin-left: -100px;
 	}

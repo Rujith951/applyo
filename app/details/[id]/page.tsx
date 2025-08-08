@@ -20,6 +20,8 @@ const MovieDetails = () => {
 	const [open, setOpen] = useState(false);
 	const [windowWidth, setWindowWidth] = useState(0);
 
+	console.log(movie, "movie");
+
 	const params = useParams();
 	const id = params?.id;
 
@@ -62,7 +64,7 @@ const MovieDetails = () => {
 							className="videoOverlay__crossBox"
 							onClick={() => setOpen(false)}
 						>
-							<RxCrossCircled color="white" size={20} />
+							<RxCrossCircled color="white" size={25} />
 						</div>
 					</div>
 				</div>
@@ -114,12 +116,18 @@ const MovieDetails = () => {
 							</p>
 						</div>
 
-						<p className="overview">{movie.overview}</p>
+						<p className="overview">
+							<strong>Overview:</strong> {movie.overview}
+						</p>
 					</div>
 
 					<div
 						className="overlay__playButton-box"
-						onClick={() => setOpen(true)}
+						onClick={() => {
+							if (windowWidth <= 820) {
+								setOpen(true);
+							}
+						}}
 						style={{
 							backgroundImage:
 								movie.poster_path && windowWidth <= 820
@@ -127,7 +135,10 @@ const MovieDetails = () => {
 									: "none",
 						}}
 					>
-						<div className="overlay__playButton-boxIcon-box">
+						<div
+							className="overlay__playButton-boxIcon-box"
+							onClick={() => setOpen(true)}
+						>
 							<FiPlay size={30} color="#fff" />
 						</div>
 					</div>

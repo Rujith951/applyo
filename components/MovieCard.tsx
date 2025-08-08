@@ -1,7 +1,7 @@
-"use client"; // Required for Client Components
+"use client";
 
 import React from "react";
-import { useRouter } from "next/navigation"; // for App Router
+import { useRouter } from "next/navigation";
 import { ENDPOINTS } from "@/constants/endPoints";
 import "@/styles/components/movieCard.scss";
 
