@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FiPlay } from "react-icons/fi";
 import { RxCrossCircled } from "react-icons/rx";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 import "@/styles/pages/movieDetails.scss";
 import {
@@ -21,6 +22,7 @@ const MovieDetails = () => {
 	const [videoKey, setVideoKey] = useState<string | null>(null);
 	const [open, setOpen] = useState(false);
 	const [windowWidth, setWindowWidth] = useState(0);
+	const router = useRouter();
 
 	const { isLoading } = useMoviesContext();
 
@@ -105,6 +107,13 @@ const MovieDetails = () => {
 						<div className="overlay__details-box">
 							<h1>{movie.title || movie.name}</h1>
 							<div className="meta">
+								<div
+									className="back"
+									style={{ marginBottom: "32px", cursor: "pointer" }}
+									onClick={() => router.push("/")}
+								>
+									<IoMdArrowRoundBack size={23} />
+								</div>
 								<span className="rating">
 									⭐ {movie.vote_average?.toFixed(1)}
 								</span>
