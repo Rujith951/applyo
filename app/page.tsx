@@ -68,7 +68,6 @@ const Home = () => {
 				...prev,
 				searchCurrentPage: selectedPage,
 			}));
-			localStorage.setItem("searchCurrentPage", JSON.stringify(selectedPage));
 		} else {
 			page.setCurrentPage(selectedPage);
 			localStorage.setItem("currentPage", JSON.stringify(selectedPage));

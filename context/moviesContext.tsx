@@ -82,21 +82,21 @@ export const MoviesContextProvider = ({
 	const [searchQuery, setSearchQuery] = useState("");
 	const [typeOf, setTypeOf] = useState("");
 	const [filters, setFilters] = useState({ type: "", year: "" });
-	const [currentPage, setCurrentPage] = useState(1);
+	const [currentPage, setCurrentPage] = useState<number>(1);
 	const [pageOfSearch, setPageOfSearch] = useState({
 		totalPages: 0,
 		searchCurrentPage: 1,
 	});
 	const [isLoading, setIsLoading] = useState(false);
 
-	console.log(pageOfSearch, "pageOfSearch");
-
-	console.log(movies, "movies in context");
-	console.log(searchQuery, "searchQuery in context");
-	console.log(filteredMovies, "filteredMovies in context");
+	useEffect(() => {
+		const storedPage = localStorage.getItem("currentPage");
+		if (storedPage !== null) {
+			setCurrentPage(parseInt(storedPage, 10));
+		}
+	}, []);
 
 	useEffect(() => {
-		// only when nothing else is active
 		if (searchQuery || filters.type || filters.year) return;
 		const load = async () => {
 			setIsLoading(true);
