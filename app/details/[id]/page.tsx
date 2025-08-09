@@ -105,15 +105,15 @@ const MovieDetails = () => {
 				>
 					<div className="overlay">
 						<div className="overlay__details-box">
+							<div
+								className="back"
+								style={{ marginBottom: "32px", cursor: "pointer" }}
+								onClick={() => router.push("/")}
+							>
+								<IoMdArrowRoundBack size={23} />
+							</div>
 							<h1>{movie.title || movie.name}</h1>
 							<div className="meta">
-								<div
-									className="back"
-									style={{ marginBottom: "32px", cursor: "pointer" }}
-									onClick={() => router.push("/")}
-								>
-									<IoMdArrowRoundBack size={23} />
-								</div>
 								<span className="rating">
 									⭐ {movie.vote_average?.toFixed(1)}
 								</span>
