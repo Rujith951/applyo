@@ -59,6 +59,13 @@
 					line-height: 1.8;
 					font-size: 1.35rem;
 					margin-top: 1.5rem;
+					height: 20vh;
+					overflow: scroll;
+
+					&::-webkit-scrollbar {
+						// display: none;
+						width: 1px;
+					}
 				}
 			}
 

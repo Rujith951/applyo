@@ -13,9 +13,10 @@ import { fetchSearchedMovies } from "@/services/movies/fetchSearchedMovies";
 export interface Movie {
 	id: number;
 	title: string;
-	name?: string; // for TV shows
+	name?: string;
 	poster_path: string;
 	overview: string;
+	release_date?: string;
 	media_type?: "movie" | "tv";
 }
 
