@@ -12,7 +12,6 @@ import { createToken } from "@/services/auth/createToken";
 import { verifyToken } from "@/services/auth/verifyToken";
 
 import "@/styles/pages/login.scss";
-import { useMoviesContext } from "@/context/moviesContext";
 
 const Login = () => {
 	const [userName, SetUserName] = useState("");

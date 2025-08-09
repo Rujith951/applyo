@@ -2,7 +2,6 @@
 
 import React, { useEffect, useLayoutEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import CryptoJS from "crypto-js";
 
 import Header from "@/components/Header";
 import Pagination from "@/components/Pagination";

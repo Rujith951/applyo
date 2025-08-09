@@ -7,17 +7,19 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { RxCross2 } from "react-icons/rx";
 
 import Button from "./Button";
+import Input from "./Input";
+
+import { useMoviesContext } from "@/context/moviesContext";
+
+import { debounce } from "@/constants/helpers/debounce";
 
 import "@/styles/components/header.scss";
-import Input from "./Input";
-import { useMoviesContext } from "@/context/moviesContext";
-import { debounce } from "@/constants/helpers/debounce";
 
 const Header = () => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const {
-		search: { setSearchQuery, searchQuery },
+		search: { setSearchQuery },
 		type: { setTypeOf },
 	} = useMoviesContext();
 	const isDetails = pathname.startsWith("/details");
@@ -26,7 +28,7 @@ const Header = () => {
 	const [showDropdown, setShowDropdown] = useState(false);
 	const [isMenu, setIsMenu] = useState(false);
 	const [inputValue, setInputValue] = useState("");
-	const [windowWidth, setWindowWidth] = useState(0);
+	// const [windowWidth, setWindowWidth] = useState(0);
 
 	console.log(isMenu, "ismenu");
 
@@ -73,14 +75,14 @@ const Header = () => {
 		};
 	}, [showDropdown]);
 
-	useEffect(() => {
-		setWindowWidth(window.innerWidth);
+	// useEffect(() => {
+	// 	setWindowWidth(window.innerWidth);
 
-		const handleResize = () => setWindowWidth(window.innerWidth);
-		window.addEventListener("resize", handleResize);
+	// 	const handleResize = () => setWindowWidth(window.innerWidth);
+	// 	window.addEventListener("resize", handleResize);
 
-		return () => window.removeEventListener("resize", handleResize);
-	}, [setSearchQuery]);
+	// 	return () => window.removeEventListener("resize", handleResize);
+	// }, [setSearchQuery]);
 
 	return (
 		<header
