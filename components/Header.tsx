@@ -19,7 +19,7 @@ const Header = () => {
 	const pathname = usePathname();
 	const router = useRouter();
 	const {
-		search: { setSearchQuery },
+		search: { setSearchQuery, searchQuery },
 		type: { setTypeOf },
 	} = useMoviesContext();
 	const isDetails = pathname.startsWith("/details");
@@ -49,7 +49,7 @@ const Header = () => {
 
 				setIsMenu(false);
 			}, 800),
-		[]
+		[searchQuery]
 	);
 
 	useEffect(() => {
