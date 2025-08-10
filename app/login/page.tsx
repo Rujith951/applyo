@@ -38,7 +38,7 @@ const Login = () => {
 
 		if (newErrors.email || newErrors.password) return;
 
-		setIsLoading(true); // Start loading
+		setIsLoading(true);
 
 		try {
 			const tokenData = await createToken();

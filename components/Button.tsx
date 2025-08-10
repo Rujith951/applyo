@@ -29,7 +29,7 @@ const Button: React.FC<ButtonProps> = ({
 			disabled={disabled || loading}
 		>
 			<span>{text}</span>
-			{loading && <Loader width="18px" height="18px" />}
+			{loading && <Loader width="12px" height="12px" />}
 		</button>
 	);
 };

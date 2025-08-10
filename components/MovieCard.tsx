@@ -7,16 +7,20 @@ import "@/styles/components/movieCard.scss";
 
 type MovieCardProps = {
 	id: number;
-	title: string;
+	title?: string;
+	name?: string;
 	poster_path: string;
-	release_date: string;
+	release_date?: string;
+	first_air_date?: string;
 };
 
 const MovieCard = ({
 	id,
 	title,
+	name,
 	poster_path,
 	release_date,
+	first_air_date,
 }: MovieCardProps) => {
 	const router = useRouter();
 
@@ -38,15 +42,17 @@ const MovieCard = ({
 				<img
 					className="movie-card__posterImg"
 					src={imageSrc}
-					alt={title}
+					alt={title || name || "No title"}
 					onError={e => {
 						(e.target as HTMLImageElement).src = "/assets/Noimg.jpg";
 					}}
 				/>
 			</div>
 			<div className="movie-card__details">
-				<h3 className="movie-card__title">{title}</h3>
-				<p className="movie-card__date">Release: {release_date}</p>
+				<h3 className="movie-card__title">{title || name}</h3>
+				<p className="movie-card__date">
+					Release: {release_date || first_air_date || "N/A"}
+				</p>
 			</div>
 		</div>
 	);
