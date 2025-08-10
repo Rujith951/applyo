@@ -91,10 +91,20 @@
 	.pagination {
 		gap: 0.3rem;
 
-		.page-item,
 		.breakItem {
 			padding: 0.6rem 1rem;
+			@include d-flex(center, center);
+		}
+
+		.page-item,
+		.breakItem {
 			font-size: 1rem;
+		}
+
+		.page-item {
+			.page-link {
+				padding: 0.6rem 1rem;
+			}
 		}
 	}
 }
@@ -103,10 +113,19 @@
 	.pagination {
 		gap: 0.2rem;
 
-		.page-item,
 		.breakItem {
 			padding: 0.5rem 0.8rem;
+		}
+
+		.page-item,
+		.breakItem {
 			font-size: 0.9rem;
+		}
+
+		.page-item {
+			.page-link {
+				padding: 0.5rem 0.8rem;
+			}
 		}
 	}
 
